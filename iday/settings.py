@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     # My apps
+    'activities.apps.ActivitiesConfig',
     'pages.apps.PagesConfig',
     'users.apps.UsersConfig',
 ]

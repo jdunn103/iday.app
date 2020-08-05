@@ -9,7 +9,23 @@
   <div class="card-body">
     <form method="post" class="m-auto">
       {% csrf_token %}
-      {{ form|crispy }}
+      <div class="form-group">
+        {{ form.email|as_crispy_field }}
+      </div>
+      <div class="form-group">
+        {{ form.username|as_crispy_field }}
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+          {{ form.first_name|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-6 mb-0">
+          {{ form.last_name|as_crispy_field }}
+        </div>
+      </div>
+      <div class="form-group">
+        {{ form.dob|as_crispy_field }}
+      </div>
       <button class="form-control btn btn-primary">UPDATE</button>
     </form>
   </div>
