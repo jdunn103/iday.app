@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import ActivityView
+from .views import ActivityCreateView
 
 urlpatterns = [
-    path('activities/', ActivityView.as_view(), name='activity'),
+    path('activities/', ActivityCreateView.as_view(), name='activity'),
 ]  

@@ -5,8 +5,11 @@ from .forms import ActivityForm
 
 from .models import Activity
 
-class ActivityView(CreateView):
+class ActivityCreateView(CreateView):
     model = Activity
     form_class = ActivityForm
-    # template_name = "activities/activity_form.html"
     success_url = reverse_lazy('my-account')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

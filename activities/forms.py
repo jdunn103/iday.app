@@ -11,3 +11,6 @@ class ActivityForm(ModelForm):
                 attrs={'autofocus': True, 'autocomplete': 'off'}
             )
         }
+        labels = {
+            'name': 'Add an activity:'
+        }
