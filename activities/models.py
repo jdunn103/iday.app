@@ -19,7 +19,19 @@ class Activity(IdayModel):
         super().save(*args, **kwargs)
     
     def __str__(self):
-        return self.name
+        return self.user.username + '-' + self.name
     
     class Meta:
         verbose_name_plural = 'Activities'
+        ordering = ['name']
+
+class Event(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    activity = models.ForeignKey('Activity', on_delete=models.PROTECT, related_name='events')
+
+    @property
+    def duration(self):
+        return self.end_time - self.start_time
