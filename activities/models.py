@@ -1,5 +1,6 @@
 from common.models import IdayModel
 from django.db import models
+from django.utils import timezone
 
 from common.utils.text import unique_slug
 
@@ -25,13 +26,23 @@ class Activity(IdayModel):
         verbose_name_plural = 'Activities'
         ordering = ['name']
 
-class Event(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+class Event(IdayModel):
+    start_time = models.DateTimeField(default=timezone.now)
+    end_time = models.DateTimeField(null=True)
     activity = models.ForeignKey('Activity', on_delete=models.PROTECT, related_name='events')
 
     @property
     def duration(self):
-        return self.end_time - self.start_time
+        if self.end_time:
+            return self.end_time - self.start_time
+        return None
+
+        def save(self, *args, **kwargs):
+            if not self.slug:
+                value = str(self)
+                self.slug = unique_slug(value, type(self))
+            
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.activity.name + '-' + self.start_time

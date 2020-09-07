@@ -1,6 +1,7 @@
+from django import forms
 from django.forms import ModelForm, TextInput
 
-from .models import Activity
+from .models import Activity, Event
 
 class ActivityForm(ModelForm):
     class Meta:
@@ -14,3 +15,8 @@ class ActivityForm(ModelForm):
         labels = {
             'name': 'Add an activity:'
         }
+
+class EventForm(ModelForm):
+    class Meta:
+        model = Event
+        fields = ['activity']

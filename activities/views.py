@@ -1,9 +1,9 @@
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, FormView, ListView, UpdateView
 from django.urls import reverse_lazy
 
-from .forms import ActivityForm
+from .forms import ActivityForm, EventForm
 
-from .models import Activity
+from .models import Activity, Event
 
 class ActivityCreateView(CreateView):
     model = Activity
@@ -16,3 +16,15 @@ class ActivityCreateView(CreateView):
 
 class ActivityListView(ListView):
     model = Activity
+
+class EventCreateView(CreateView):
+    model = Event
+    template_name = 'activities/event_form.html'
+    form_class = EventForm
+    success_url = reverse_lazy('event')
+
+class EventUpdateView(UpdateView):
+    model = Event
+    template_name = 'activities/event_form.html'
+    form_class = EventForm
+    success_url = reverse_lazy('event')
