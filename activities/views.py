@@ -1,7 +1,7 @@
 from django.views.generic import CreateView, FormView, ListView, UpdateView
 from django.urls import reverse_lazy
-
-from .forms import ActivityForm, EventForm
+from django.utils import timezone
+from .forms import ActivityForm
 
 from .models import Activity, Event
 
@@ -20,11 +20,14 @@ class ActivityListView(ListView):
 class EventCreateView(CreateView):
     model = Event
     template_name = 'activities/event_form.html'
-    form_class = EventForm
-    success_url = reverse_lazy('event')
+    fields = ['activity']
 
 class EventUpdateView(UpdateView):
     model = Event
-    template_name = 'activities/event_form.html'
-    form_class = EventForm
-    success_url = reverse_lazy('event')
+    template_name = 'activities/event_update.html'
+    fields = []
+    success_url = reverse_lazy('activity-list')
+
+    def form_valid(self, form):
+        form.instance.end_time = timezone.now()
+        return super().form_valid(form)

@@ -15,8 +15,3 @@ class ActivityForm(ModelForm):
         labels = {
             'name': 'Add an activity:'
         }
-
-class EventForm(ModelForm):
-    class Meta:
-        model = Event
-        fields = ['activity']

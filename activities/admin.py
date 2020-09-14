@@ -17,7 +17,7 @@ class ActivityAdmin(admin.ModelAdmin):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     model = Event
-    list_display = ['activity', 'created', 'updated', 'start_time', 'end_time', 'duration']
+    list_display = ['activity', 'created', 'updated', 'start_time', 'end_time', 'duration', 'slug']
 
     def get_readonly_fields(self, request, obj=None):
         if obj: # editing an existing object

@@ -1,6 +1,7 @@
 from common.models import IdayModel
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 from common.utils.text import unique_slug
 
@@ -37,12 +38,15 @@ class Event(IdayModel):
             return self.end_time - self.start_time
         return None
 
-        def save(self, *args, **kwargs):
-            if not self.slug:
-                value = str(self)
-                self.slug = unique_slug(value, type(self))
-            
+    def get_absolute_url(self):
+        return reverse('event-update', args=[str(self.slug)])
+        
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            value = str(self)
+            self.slug = unique_slug(value, type(self))
+        
         super().save(*args, **kwargs)
     
     def __str__(self):
-        return self.activity.name + '-' + self.start_time
+        return self.activity.name + '-' + str(self.start_time)
